@@ -414,6 +414,7 @@ ompi_coll_base_allreduce_intra_ring(const void *sbuf, void *rbuf, int count,
 
     /* Computation loop */
 
+    ws_timing_punch(3001250,0,0);
     /*
        For each of the remote nodes:
        - post irecv for block (r-1)
