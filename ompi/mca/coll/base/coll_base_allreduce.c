@@ -449,6 +449,8 @@ ompi_coll_base_allreduce_intra_ring(const void *sbuf, void *rbuf, int count,
                             MCA_PML_BASE_SEND_STANDARD, comm));
     if (MPI_SUCCESS != ret) { line = __LINE__; goto error_hndl; }
 
+    ws_timing_punch(3001300,1,0);
+
     for (k = 2; k < size; k++) {
         const int prevblock = (rank + size - k + 1) % size;
 
@@ -484,6 +486,7 @@ ompi_coll_base_allreduce_intra_ring(const void *sbuf, void *rbuf, int count,
     ret = ompi_request_wait(&reqs[inbi], MPI_STATUS_IGNORE);
     if (MPI_SUCCESS != ret) { line = __LINE__; goto error_hndl; }
 
+    ws_timing_punch(3001400,k,0);
     /* Apply operation on the last block (from neighbor (rank + 1)
        rbuf[rank+1] = inbuf[inbi] (op) rbuf[rank + 1] */
     recv_from = (rank + 1) % size;
