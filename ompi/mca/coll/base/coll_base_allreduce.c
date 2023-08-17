@@ -26,6 +26,7 @@
 
 #include "ompi_config.h"
 
+#include <wsong/timing.h>
 #include "mpi.h"
 #include "opal/util/bit_ops.h"
 #include "ompi/constants.h"
@@ -344,6 +345,7 @@ ompi_coll_base_allreduce_intra_ring(const void *sbuf, void *rbuf, int count,
                                      struct ompi_communicator_t *comm,
                                      mca_coll_base_module_t *module)
 {
+    ws_timing_punch(3001001,0,0); // entering allreduce
     int ret, line, rank, size, k, recv_from, send_to, block_count, inbi;
     int early_segcount, late_segcount, split_rank, max_segcount;
     size_t typelng;
@@ -491,6 +493,7 @@ ompi_coll_base_allreduce_intra_ring(const void *sbuf, void *rbuf, int count,
     tmprecv = ((char*)rbuf) + (ptrdiff_t)block_offset * extent;
     ompi_op_reduce(op, inbuf[inbi], tmprecv, block_count, dtype);
 
+    ws_timing_punch(3001500,0,0); // after reduce scatter, before all gather
     /* Distribution loop - variation of ring allgather */
     send_to = (rank + 1) % size;
     recv_from = (rank + size - 1) % size;
@@ -523,6 +526,7 @@ ompi_coll_base_allreduce_intra_ring(const void *sbuf, void *rbuf, int count,
     if (NULL != inbuf[0]) free(inbuf[0]);
     if (NULL != inbuf[1]) free(inbuf[1]);
 
+    ws_timing_punch(3001999,0,0); // existing allreduce
     return MPI_SUCCESS;
 
  error_hndl:
