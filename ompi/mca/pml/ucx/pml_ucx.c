@@ -25,6 +25,8 @@
 #endif /* OPAL_CUDA_SUPPORT */
 #include "pml_ucx_request.h"
 
+#include <wsong/timing.h>
+
 #include <inttypes.h>
 
 
@@ -950,6 +952,8 @@ int mca_pml_ucx_send(const void *buf, size_t count, ompi_datatype_t *datatype, i
                                     PML_UCX_MAKE_SEND_TAG(tag, comm));
     }
 #endif
+
+    ws_timing_punch(3001280,count,0);
 
     return mca_pml_ucx_send_nb(ep, buf, count, datatype,
                                mca_pml_ucx_get_datatype(datatype),
