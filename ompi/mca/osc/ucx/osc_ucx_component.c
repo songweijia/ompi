@@ -314,7 +314,7 @@ static inline int mem_map(void **base, size_t size, ucp_mem_h *memh_ptr,
     }
 
     /* memory map */
-    printf("%s:%d\n",__FILE__,__LINE__);
+    printf("%s:%d registering: %ld bytes @%p\n",__FILE__,__LINE__,mem_params.length,mem_params.address);
     status = ucp_mem_map(mca_osc_ucx_component.ucp_context, &mem_params, memh_ptr);
     if (status != UCS_OK) {
         OSC_UCX_VERBOSE(1, "ucp_mem_map failed: %d", status);
@@ -329,6 +329,7 @@ static inline int mem_map(void **base, size_t size, ucp_mem_h *memh_ptr,
         ret = OMPI_ERROR;
         goto error;
     }
+    printf("%s:%d %ld bytes registered @%p\n",__FILE__,__LINE__,mem_attrs.length,mem_attrs.address);
 
     assert(mem_attrs.length >= size);
     if (flavor == MPI_WIN_FLAVOR_CREATE) {

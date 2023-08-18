@@ -18,6 +18,8 @@
 
 #include <ucp/api/ucp.h>
 
+#include <wsong/timing.h>
+
 #include "opal/mca/mca.h"
 #include "opal/util/output.h"
 #include "opal/runtime/opal_progress.h"
