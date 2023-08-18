@@ -908,9 +908,11 @@ mca_pml_ucx_send_nbr(ucp_ep_h ep, const void *buf, size_t count,
         .request      = req
     };
 
+    ws_timing_punch(3001290,count,0);
     req = ucp_tag_send_nbx(ep, buf,
                            mca_pml_ucx_get_data_size(op_data, count),
                            tag, &param);
+    ws_timing_punch(3001291,count,0);
     if (OPAL_LIKELY(req == UCS_OK)) {
         return OMPI_SUCCESS;
     } else if (UCS_PTR_IS_ERR(req)) {
