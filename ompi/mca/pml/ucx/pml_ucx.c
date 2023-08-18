@@ -930,8 +930,6 @@ mca_pml_ucx_send_nbr(ucp_ep_h ep, const void *buf, size_t count,
 #endif
 
     MCA_COMMON_UCX_WAIT_LOOP(req, ompi_pml_ucx.ucp_worker, "ucx send nbr", (void)0);
-
-    ws_timing_punch(3001292,count,0);
 }
 #endif
 

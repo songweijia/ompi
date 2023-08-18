@@ -71,6 +71,7 @@ BEGIN_C_DECLS
             if (UCS_INPROGRESS != status) {                                              \
                 _completed;                                                              \
                 if (OPAL_LIKELY(UCS_OK == status)) {                                     \
+                    ws_timing_punch(3001292,0,0);                                        \
                     return OPAL_SUCCESS;                                                 \
                 } else {                                                                 \
                     MCA_COMMON_UCX_VERBOSE(1, "%s failed: %d, %s",                       \
