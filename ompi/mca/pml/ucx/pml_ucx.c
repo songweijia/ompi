@@ -948,12 +948,13 @@ int mca_pml_ucx_send(const void *buf, size_t count, ompi_datatype_t *datatype, i
 #if HAVE_DECL_UCP_TAG_SEND_NBR
     if (OPAL_LIKELY((MCA_PML_BASE_SEND_BUFFERED != mode) &&
                     (MCA_PML_BASE_SEND_SYNCHRONOUS != mode))) {
+        ws_timing_punch(3001281,count,mode);
         return mca_pml_ucx_send_nbr(ep, buf, count, datatype,
                                     PML_UCX_MAKE_SEND_TAG(tag, comm));
     }
 #endif
 
-    ws_timing_punch(3001280,count,0);
+    ws_timing_punch(3001282,count,mode);
 
     return mca_pml_ucx_send_nb(ep, buf, count, datatype,
                                mca_pml_ucx_get_datatype(datatype),
