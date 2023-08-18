@@ -699,6 +699,7 @@ sshmem_mkey_t *mca_spml_ucx_register(void* addr,
         mem_map_params.length     = size;
         mem_map_params.flags      = flags;
 
+        printf("%s:%d\n",__FILE__,__LINE__);
         status = ucp_mem_map(mca_spml_ucx.ucp_context, &mem_map_params, &mem_h);
         if (UCS_OK != status) {
             goto error_out;

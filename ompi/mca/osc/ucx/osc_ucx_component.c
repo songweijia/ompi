@@ -314,7 +314,7 @@ static inline int mem_map(void **base, size_t size, ucp_mem_h *memh_ptr,
     }
 
     /* memory map */
-
+    printf("%s:%d\n",__FILE__,__LINE__);
     status = ucp_mem_map(mca_osc_ucx_component.ucp_context, &mem_params, memh_ptr);
     if (status != UCS_OK) {
         OSC_UCX_VERBOSE(1, "ucp_mem_map failed: %d", status);
