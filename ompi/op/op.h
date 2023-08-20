@@ -44,6 +44,7 @@
 #include "ompi/datatype/ompi_datatype.h"
 #include "ompi/mpi/fortran/base/fint_2_int.h"
 #include "ompi/mca/op/op.h"
+#include "wsong/timing.h"
 
 BEGIN_C_DECLS
 
@@ -610,9 +611,11 @@ static inline void ompi_op_reduce(ompi_op_t * op, void *source,
         } else {
             dtype_id = ompi_op_ddt_map[dtype->id];
         }
+        ws_timing_punch(3001420,count,0);
         op->o_func.intrinsic.fns[dtype_id](source, target,
                                            &count, &dtype,
                                            op->o_func.intrinsic.modules[dtype_id]);
+        ws_timing_punch(3001480,count,0);
         return;
     }
 
