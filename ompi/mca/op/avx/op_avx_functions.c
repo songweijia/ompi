@@ -274,6 +274,7 @@ static void OP_CONCAT(ompi_op_avx_2buff_##name##_##type,PREPEND)(const void *_in
         out += how_much;                                                       \
         in += how_much;                                                        \
     }                                                                          \
+    printf("[triggered here]:%s:%d\n",__func__,__FILE__);                      \
 }
 
 #if defined(GENERATE_AVX512_CODE) && defined(OMPI_MCA_OP_HAVE_AVX512) && (1 == OMPI_MCA_OP_HAVE_AVX512)
