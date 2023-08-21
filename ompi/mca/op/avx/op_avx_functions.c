@@ -196,6 +196,7 @@
             _mm512_storeu_si512((__m512*)out, res);                            \
             out += types_per_step;                                             \
         }                                                                      \
+        printf("[triggered here]:%s:%d\n",__func__,__FILE__);                  \
         if( 0 == left_over ) return;                                           \
     }
 #else
@@ -255,6 +256,7 @@ static void OP_CONCAT(ompi_op_avx_2buff_##name##_##type,PREPEND)(const void *_in
 {                                                                              \
     int left_over = *count;                                                    \
     type *in = (type*)_in, *out = (type*)_out;                                 \
+    printf("[triggered here]:%s:%d\n",__func__,__FILE__);                      \
     OP_AVX_AVX512_FUNC(name, type_sign, type_size, type, op);                  \
     OP_AVX_AVX2_FUNC(name, type_sign, type_size, type, op);                    \
     OP_AVX_SSE4_1_FUNC(name, type_sign, type_size, type, op);                  \
@@ -274,7 +276,6 @@ static void OP_CONCAT(ompi_op_avx_2buff_##name##_##type,PREPEND)(const void *_in
         out += how_much;                                                       \
         in += how_much;                                                        \
     }                                                                          \
-    printf("[triggered here]:%s:%d\n",__func__,__FILE__);                      \
 }
 
 #if defined(GENERATE_AVX512_CODE) && defined(OMPI_MCA_OP_HAVE_AVX512) && (1 == OMPI_MCA_OP_HAVE_AVX512)
