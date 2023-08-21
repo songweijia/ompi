@@ -950,7 +950,6 @@ int mca_pml_ucx_send(const void *buf, size_t count, ompi_datatype_t *datatype, i
 #if HAVE_DECL_UCP_TAG_SEND_NBR
     if (OPAL_LIKELY((MCA_PML_BASE_SEND_BUFFERED != mode) &&
                     (MCA_PML_BASE_SEND_SYNCHRONOUS != mode))) {
-        printf("sending %d items at %p.\n",count, buf);
         ws_timing_punch(3001281,count,mode);
         return mca_pml_ucx_send_nbr(ep, buf, count, datatype,
                                     PML_UCX_MAKE_SEND_TAG(tag, comm));
