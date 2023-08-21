@@ -187,7 +187,7 @@
 #if __AVX512F__
 #define OP_AVX_AVX512_FUNC(name, type_sign, type_size, type, op)               \
     if( OMPI_OP_AVX_HAS_FLAGS(OMPI_OP_AVX_HAS_AVX512F_FLAG|OMPI_OP_AVX_HAS_AVX512BW_FLAG) ) { \
-        ws_timing_punch(3001430,left_over,0);                                  \
+        ws_timing_punch(3001430,(uint64_t)in,(uint64_t)out);                                  \
         int types_per_step = (512 / 8) / sizeof(type);                         \
         for( ; left_over >= types_per_step; left_over -= types_per_step ) {    \
             __m512i vecA = _mm512_loadu_si512((__m512*)in);                    \
@@ -197,7 +197,7 @@
             _mm512_storeu_si512((__m512*)out, res);                            \
             out += types_per_step;                                             \
         }                                                                      \
-        ws_timing_punch(3001470,left_over,0);                                  \
+        ws_timing_punch(3001470,(uint64_t)in,(uint64_t)(out));                                  \
         if( 0 == left_over ) return;                                           \
     }
 #else
